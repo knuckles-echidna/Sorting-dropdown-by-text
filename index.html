@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Table to array function</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	    <div class="row">
+	        <h1 class="text-center">Sorting dropdown</h1>
+	        <hr>
+	        <div class="col-sm-6">
+	            
+	            <select class='whatever form-control'>
+	                <option value='13'>Glitchop</option>
+	                <option value='9'>Chillstep</option>
+	                <option value='3'>Drum and Bass</option>
+	                <option value='0'>Ambient</option>
+	                <option value='13'>Glitchstep</option>
+	                <option value='-11'>Drone</option>
+	                <option value='10'>Zumba</option>
+	                <option value='23'>Metal</option>
+	            </select>
+	            <button class="btn btn-success" type=button>Sort!</button>
+	        </div>
+	        <div class="col-sm-6">
+	            <h2>Data before:</h2>
+	            <pre id="output1"></pre>
+	            <h2>Data after:</h2>
+	            <pre id="output2"></pre>
+	        </div>    
+	    </div>
+	</div>
+
+
+
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript">
+		$("document").ready(function(){
+		    $.each($("option"), function(){
+		        $("#output1").append($(this).text()+":"+$(this).val()+"\n");
+		    });
+		});
+		$('button').click(function() {
+		    $("#output2").html('');
+		    var options = $('select.whatever option');
+		    var arr = options.map(function(_, o) {
+		        return {
+		            t: $(o).text(),
+		            v: o.value
+		        };
+		    }).get();
+		    arr.sort(function(o1, o2) {
+		        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+		    });
+		    options.each(function(i, o) {
+		        console.log(i);
+		        o.value = arr[i].v;
+		        $(o).text(arr[i].t);
+		    });
+		    $.each($("option"), function(){
+		        $("#output2").append($(this).text()+":"+$(this).val()+"\n");
+		    });
+		});
+	</script>
+</body>
+</html>
